@@ -44,3 +44,21 @@ git rebase -i HEAD~n #say you want to squash last n commits
 git commit --amend
 git push -f origin HEAD:refs/heads/<branch-name>
 
+###Easier way to squash - 
+git clone <repo>
+cd repo
+git checkout <ECU branch on top of which you want to cherry-pick>
+git checkout -b <new-branch>
+**cherry-pick all commits in a single go - 
+git cherry-pick --no-commit <commit-id>
+git cherry-pick --no-commit <commit-id>
+git cherry-pick --no-commit <commit-id>
+git cherry-pick --no-commit <commit-id>
+git cherry-pick --no-commit <commit-id>
+git cherry-pick --no-commit <commit-id>
+git status
+git add .
+git commit (modify the commit)
+git commit --amend (cross-check)
+git push origin HEAD:refs/heads/<new-branch>
+
