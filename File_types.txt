@@ -1,2 +1,19 @@
-.md - Markdown file - a plain text file that uses the Markdown ( a lightweight markup language) syntax to format text
+# .md - Markdown file - a plain text file that uses the Markdown ( a lightweight markup language) syntax to format text
+
+# Ruff - .ruff.toml - file is a configuration file for Ruff, a fast Python linter and code formatter. It tells Ruff how to check and format your Python code. 
+Ruff helps developers:
+- Detect code errors
+- Enforce coding style rules
+- Automatically fix issues
+- The .ruff.toml file defines, Which linting rules to apply, Which rules to ignore.
+
+# tox.ini - file is a configuration file for Tox, used to automate testing of Python projects in multiple environments.
+   - it tells Tox, which Python versions to use, which dependencies to install, which commands/tests to run.
+
+
+
+
+
+
+
 
