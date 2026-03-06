@@ -1,1 +1,6 @@
+# Tagging - creating a version tag in a Git repository during the CI/CD pipeline to mark a specific release of the code.
+   - A tag is like a label attached to a specific commit so you can easily identify versions of your project.
 
+# Bumping - increasing or updating a version number of something in a project - package, dependency, or application.
+
+# 
