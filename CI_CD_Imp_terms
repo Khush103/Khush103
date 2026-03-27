@@ -5,4 +5,10 @@
 
 # utils - Utilities - small, reusable helper functions, scripts, or tools that make common tasks easier and more consistent.
 
-#
+# fatal - serious error that stops a process or program from continuing
+
+# nonce - number used once - mainly to ensure security, prevent replay attacks, and verify authenticity in various systems
+# nitpick - to look for very small, often unimportant flaws or details
+# backlog - Work that has accumulated and still needs to be completed
+# ninja - A build execution tool, similar to make, but optimized for speed.
+ 
