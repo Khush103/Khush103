@@ -1,0 +1,3 @@
+## tox - open source Python test automation tool
+## ruff - extremely fast linter and code formatter for Python , written in Rust
+## Rust - modern systems programming language known for extreme speed, memory safety and parallelism
