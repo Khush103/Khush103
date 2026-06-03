@@ -10,6 +10,18 @@ Ruff helps developers:
 # tox.ini - file is a configuration file for Tox, used to automate testing of Python projects in multiple environments.
    - it tells Tox, which Python versions to use, which dependencies to install, which commands/tests to run.
 
+# .bb - BitBake recipe. Defines how to fetch, configure, compile, and package software.
+# .bbappend - Extends or modifies an existing .bb recipe without changing the original recipe.
+# .inc - Include file containing common metadata shared by multiple recipes.
+# .conf - Configuration files used for build settings, machine configuration, distro configuration, layer configuration, etc.
+# .patch - Source code patches applied during the build process.
+# .diff - Alternative patch format used for source modifications.
+# local.conf - Main local build configuration file located in the build directory.
+# bblayers.conf - Specifies which layers are included in the build.
+# layer.conf - Layer-specific configuration file found in the conf directory of a layer.
+# machine.conf - Defines machine-specific settings such as architecture, kernel, bootloader, and hardware features.
+# distro.conf - Defines distribution-specific policies and package selections.
+
 
 
 
