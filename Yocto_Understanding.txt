@@ -1,6 +1,6 @@
 YP -> yocto project
 
------------------LAYERS PRIORITY----------------------------
+-----------------LAYERS & VARIABLES----------------------------
 The "layer hierarchy" determines where BitBake looks for metadata and which layer wins when multiple layers provide the same thing.
 # So, A Yocto build is composed of multiple layers like - 
 meta
@@ -20,8 +20,18 @@ The .bbappend file modifies the recipe from another layer.
 
 # Each layer contains a conf/layer.conf file. These files defines - 
 
-BBFILE_COLLECTIONS += "meta-idcevo" -->> a variable in YP build system that defines the set of metadata "collections" i.e. layers known to BitBake.
+- BBPATH -->> the list of directories BitBake scans to find build metadata.
 
-BBFILE_PATTERN_meta-idcevo += "^${LAYERDIR}/" -->> expands to the absolute path of the layer directory.
+- BBFILES -->> BitBake varibale that tells the build system which .bb recipes files should be parsed and included in the build
 
-BBFILE_PRIORITY_meta-idcevo += "10" -->> Higher priority generally wins when multiple layers provide the same recipe.
+- BBFILE_COLLECTIONS += "meta-bosp" -->> a variable in YP build system that defines the set of metadata "collections" i.e. layers known to BitBake.
+
+- BBFILE_PATTERN_meta-bosp += "^${LAYERDIR}/" -->> expands to the absolute path of the layer directory. -->> in this case home/user/poky/meta-bosp (i.e. "^${LAYERDIR}/" - Match all files located under this layer's directory tree.)
+
+- BBFILE_PRIORITY_meta-bosp += "10" -->> Higher priority generally wins when multiple layers provide the same recipe.
+
+- LAYERDEPENDS_meta-bosp = "meta-bsys"  -->> means that meta-bosp depends on the layer collection meta-bsys
+
+-  BBMASK += "meta-openembedded/meta-filesystems/recipes-filesystems/images/" -->> used to exclude recipes or, recipe files from being parsed or, being used by the build system.
+
+- require require bsys-exclude.inc -->> stop here and include the contents of bsys-exclude.inc into this file. If the file cannot be found, fails the parse.
