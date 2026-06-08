@@ -1,6 +1,6 @@
 YP -> yocto project
 
------------------LAYERS & VARIABLES----------------------------
+-----------------LAYER VARIABLES----------------------------
 The "layer hierarchy" determines where BitBake looks for metadata and which layer wins when multiple layers provide the same thing.
 # So, A Yocto build is composed of multiple layers like - 
 meta
@@ -35,3 +35,5 @@ The .bbappend file modifies the recipe from another layer.
 -  BBMASK += "meta-openembedded/meta-filesystems/recipes-filesystems/images/" -->> used to exclude recipes or, recipe files from being parsed or, being used by the build system.
 
 - require require bsys-exclude.inc -->> stop here and include the contents of bsys-exclude.inc into this file. If the file cannot be found, fails the parse.
+
+- LAYERSERIES_COMPAT_meta-bosp = "dunfell kirkstone scarthgap" -->> compatibility declaration - it tells that layer meta-bosp is compatible with dunfell, kirkstone and scarthgap series.
