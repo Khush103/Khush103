@@ -13,4 +13,25 @@
 # ninja - A build execution tool, similar to make, but optimized for speed.
 
 # Snapshot = Work-in-progress version - development version of an artifact that is not final or stable.
+
+# lifecycle - the end-to-end process through which software is planned, built, delivered, operated, and continuously improved.
+Plan
+  ↓
+Code
+  ↓
+Build
+  ↓
+Test
+  ↓
+Release
+  ↓
+Deploy
+  ↓
+Operate
+  ↓
+Monitor
+  ↓
+Feedback
+
+# logistics - the movement, storage, tracking, and delivery of software artifacts throughout the software delivery lifecycle.
  
