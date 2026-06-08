@@ -1,1 +1,27 @@
+YP -> yocto project
 
+-----------------LAYERS PRIORITY----------------------------
+The "layer hierarchy" determines where BitBake looks for metadata and which layer wins when multiple layers provide the same thing.
+# So, A Yocto build is composed of multiple layers like - 
+meta
+meta-poky
+meta-yocto-bsp
+meta-openembedded
+meta-company
+meta-product etc. and each leyers contribute some meta-data to the build.
+e.g. 
+meta-openembedded
+    └── recipes-support/curl/curl_8.0.bb
+meta-company
+    └── recipes-support/curl/curl_8.0.bbappend
+so, here the .bbappend file modifies the recipe from another layer.
+
+The .bbappend file modifies the recipe from another layer.
+
+# Each layer contains a conf/layer.conf file. These files defines - 
+
+BBFILE_COLLECTIONS += "meta-idcevo" -->> a variable in YP build system that defines the set of metadata "collections" i.e. layers known to BitBake.
+
+BBFILE_PATTERN_meta-idcevo += "^${LAYERDIR}/" -->> expands to the absolute path of the layer directory.
+
+BBFILE_PRIORITY_meta-idcevo += "10" -->> Higher priority generally wins when multiple layers provide the same recipe.
