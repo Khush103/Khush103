@@ -1,3 +1,4 @@
 ## tox - open source Python test automation tool
 ## ruff - extremely fast linter and code formatter for Python , written in Rust
 ## Rust - modern systems programming language known for extreme speed, memory safety and parallelism
+    # crates.io - the official package registry for the Rust programming language. It hosts reusable Rust packages called                       “crates,” similar to how npm hosts JavaScript packages or PyPI hosts Python packages.
