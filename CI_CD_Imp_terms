@@ -34,4 +34,10 @@ Monitor
 Feedback
 
 # logistics - the movement, storage, tracking, and delivery of software artifacts throughout the software delivery lifecycle.
+
+# dm-verity - Device Mapper Verity
+            - a linux kernel feature used to verify the integrity of a block device, such as a system partition. 
+            - widely used in android and other embedded systems to ensure that critical system files have not been modified.
+
+#
  
