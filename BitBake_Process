@@ -1,0 +1,203 @@
+### BitBake doesn't really execute "meta-layers" one after another.###
+------------High Level Workflow-----
+When we run 'bitbake core-image-minimal', bitbake goes through roughly these phases - 
+    1. Read configuration 
+    2. Discover layers
+    3. Parse metadata
+    4. Select recipes
+    5. Resolve dependencies
+    6. Generate task graphs
+    7. Execute tasks
+    8. Create image
+
+--------------------Start--------------------------------------------------------------------------------
+Now, lets explain the process above one by one - 
+## 1. Read Configuration - bitbake starts from the build directory. 
+    build / -- bblayers.conf - tell bitbake which layers exist
+    build / -- local.conf - contains machine settings, image tweaks, package formats etc.
+
+## 2. Parse layer configuration - bitbake visits every layer listed in BBLAYERS
+      BBFILES += "${LAYERDIR}/recipes-*/*/*.bb"
+      BBFILE_COLLECTIONS += "mycompany"
+      BBFILE_PRIORITY_mycompany = "9"
+
+. The layer configuration tells bitbake - where recipes are, where classes are, layer priority and overrides.
+. till now, bitbake has not build anything, it is merely discovering metadata.
+
+## 3. Parse Recipes - now bitbake parse all below files from every enabled layers -
+    * .bb
+    * .bbappend
+    * .inc
+    * .conf
+    * .bbclass
+Now, BitBake combines them into a single recipe view - 
+        bash_5.2.bb
+            +
+        bash_5.2.bbappend
+            ↓
+        final bash recipe
+Now, suppose, there are 2 layers providing same bash file, Which Layer WINs???
+hmmm...
+BitBake chooses according to:
+  - BBFILE_PRIORITY
+  - PREFERRED_VERSION
+  - PREFERRED_PROVIDER
+The Higher priority layer usually wins.
+
+## 4. Build Recipe Dependency Graph - Suppose, core-image-minimal depends on busybox, systemd, base-files etc and these
+depend on some other files, bitbake builds a dependency graph like - 
+    core-image-minimal
+    ├── busybox
+    ├── systemd
+    └── base-files
+         └── glibc
+Still nothing compiled, Only dependency analysis.
+
+## 5. Expand Tasks - Each recipes contains tasks - 
+    do_fetch
+    do_unpack
+    do_patch
+    do_configure
+    do_compile
+    do_install
+    do_package
+BitBake now expands every task for every dependency.
+
+## Create Global Task Graph - This is the most important concept. BitBake does not build recipe-by-recipe. 
+Instead it creates a giant graph like - 
+    glibc:do_fetch
+    glibc:do_unpack
+    glibc:do_compile
+
+    busybox:do_fetch
+    busybox:do_unpack
+    busybox:do_compile
+
+    systemd:do_fetch
+    systemd:do_unpack
+    systemd:do_compile
+
+with dependencies like:
+    glibc:do_populate_sysroot
+          ↓
+    busybox:do_configure
+
+Result:
+            glibc
+             ↓
+          busybox
+             ↓
+      core-image-minimal
+
+BitBake schedules tasks globally.
+
+## 7. Shared State Check (sstate) - Before executing a task, bitbake asks - can I reuse the previous results ?
+It checks the Shared State Cache - sstate-cache/ 
+If found: restore artifact instead of rebuilding.
+e.g. busybox:do_compile -- may be skipped because an identical build already exists.
+
+This is why subsequent builds are much faster.
+
+## 8. Execute Tasks - Now actual work begins. 
+For a package: 
+- do_fetch -- downloads source
+- do_unpack -- extracts source
+- do_patch -- applies patches
+- do_configure -- runs './configure' or, or CMake/Meson equivalents.
+- do_compile -- runs 'make'
+- do_install -- installs into ${D} - staging area
+- do_package -- creates packages
+
+## 9. Populate Sysroot - This is one of the most important tasks. - do_populate_sysroot
+e.g. 'glibc' exports: 
+                      - headers
+                      - libraries
+                      - pkgconfig files
+into the sysroot. 
+
+Then, busybox can compile against them. 
+Dependency: 
+    glibc:do_populate_sysroot
+             ↓
+    busybox:do_configure
+
+## 10. Build the Root Filesystem - After all packages are built - core-minimal-image runs the 'do_rootfs'
+BitBake installs selected packages into - rootfs
+e.g. 
+  /bin
+  /etc
+  /usr
+  /lib 
+are assembled. 
+
+## 11. Generate Final Images - then image tasks run.
+    do_image
+    do_image_ext4
+    do_image_wic
+e.g. 
+core-image-minimal.ext4
+core-image-minimal.wic
+core-image-minimal.tar.bz2
+-----------------------------------Bitbake Build is DONE------------------------------------------------
+Example with Real Layers: 
+Suppose, you are building with- 
+    meta
+    meta-openembedded
+    meta-company
+you build 'bitbake my-image', then the flow is like below - 
+        Read bblayers.conf
+                  ↓
+              Parse meta
+                  ↓
+        Parse meta-openembedded
+                  ↓
+        Parse meta-company
+                  ↓
+        Apply .bbappends
+                  ↓
+        Choose Providers
+                  ↓
+        Resolve Dependencies
+                  ↓
+        Generate task graph
+                  ↓
+          Check for sstate
+                  ↓
+              Run tasks
+                  ↓
+              Create Packages
+                  ↓
+              Create rootfs
+                  ↓
+              CREATE IMAGE
+              
+--------------------------------------------------------------------------------------------------------
+
+**** Points ****
+-> LAYERS are mostly important during the MetaData Parsing, not during execution.
+      Layer = Source of metadata
+      Recipe = Build Description
+      Task = Actual Executable Unit
+
+BitBake eventually forgets about the "layer order" and works with a unified metadata.
+
+Conceptually: 
+                meta
+                meta-openembedded
+                meta-company
+                      ↓
+                Merged Metadata
+                      ↓
+                    Recipes
+                      ↓
+                    Tasks
+                      ↓
+                Dependency Graphs
+                      ↓
+                  Execution
+
+
+                
+      
+
+
