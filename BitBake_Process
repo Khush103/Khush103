@@ -197,8 +197,33 @@ Conceptually:
                   Execution
 
 --------------Terms - Definitions-------------
+## .inc -> include files - contains reusable meta data shared across multiple recipes or, configuration files.
+    - they help avoiding duplications by placing common definitions in a single file that can be included
+        by multiple recipes.
+    - .inc files typically contains:
+                    - common variable definitions
+                    - Package metadata (DESCRIPTION, LICENSES etc.)
+                    - shared functions and tasks
+                    - source URLs
+                    - Dependency declarations
+                    - Build configuration settings
+A recipe .bb file can include .inc file using -
+                include common.inc -> tries to include the .inc file, if file is missing, bitbake still continues without error
+or,
+                require common.inc -> .inc file must exist. If missing, bitbake throws an error.
 
+## .bbclass -> class files - defines reusable build behavior, functions, logucs, tasks and variables that can be 
+                                inherited by .bb or, .inc files
+                            - While .inc files are mainly for sharing metadata, .bbclass files are for sharing functionality and build logic.
 
+A .bbclass can contain
+        - Variables
+        - Shell functions
+        - Python functions
+        - Tasks (do_compile, do_install, etc.)
+        - Task dependencies
+        - Event handlers
+        - Anonymous Python code
 ----------------------------------------------
 
 ------------What is there in meta-layers ?------------
