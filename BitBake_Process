@@ -57,7 +57,7 @@ Still nothing compiled, Only dependency analysis.
     do_fetch
     do_unpack
     do_patch
-    do_prepare_recipe_sysroot
+    do_prepare_recipe_sysroot -> Collects files exported by dependency recipes and Creates the recipe-specific build sysroot.
     do_configure
     do_compile
     do_install
