@@ -1,1 +1,21 @@
+Alt + Tab - switch between open apps
+Win + D - show desktop
+Ctrl + Shift + Esc - Open task manager
+Win + E - open file explorer
+Alt + Up arrow - go up one folder
 
+## Browser Shortcuts ##
+Ctrl + T = New tab
+Ctrl + W = close tab
+Ctrl + shift + T = reopen closed tab
+Ctrl + Tab = next tab
+Ctrl + shift + Tab = Previous tab
+Ctrl + L = jump to the address bar
+Ctrl + R = Refresh page
+Ctrl + Shift + R = Hard Refresh page
+
+## Power User shortcuts ##
+Win + shift + S = screenshot 
+Win + V = clipboard history 
+Win + . = emoji picker
+Alt + F4 = close current app
