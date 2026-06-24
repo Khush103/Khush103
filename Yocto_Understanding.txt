@@ -29,6 +29,7 @@ The .bbappend file modifies the recipe from another layer.
 - BBFILE_PATTERN_meta-bosp += "^${LAYERDIR}/" -->> expands to the absolute path of the layer directory. -->> in this case home/user/poky/meta-bosp (i.e. "^${LAYERDIR}/" - Match all files located under this layer's directory tree.)
 
 - BBFILE_PRIORITY_meta-bosp += "10" -->> Higher priority generally wins when multiple layers provide the same recipe.
+        ** If layer priority is not defined, BitBake computes the priority based on LAYERDEPENDS.
 
 - LAYERDEPENDS_meta-bosp = "meta-bsys"  -->> means that meta-bosp depends on the layer collection meta-bsys
 
