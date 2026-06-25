@@ -6,6 +6,28 @@
 # utils - Utilities - small, reusable helper functions, scripts, or tools that make common tasks easier and more consistent.
 
 # fatal - serious error that stops a process or program from continuing
+# busybox - small software package that combines many Unix/Linux command-line utilities in a single executable file
+            * It's often described as "the Swiss Army knife of embedded Linux."
+            * Light weight implementation of Linux commands
+            * Instead of installing separate programs like ls, cp, grep, cat, mount, and hundreds of others, 
+               a system can use one BusyBox binary that provides all those commands.
+# uv - its a fast python package and project manager written in rust. 
+            * it aims to replace several common python tools with a single command line tool.
+            * uv combines functionality typically provided by:
+                     pip (package installation)
+                     venv (virtual environments)
+                     pip-tools (dependency locking)
+                     pyenv (Python version management, to some extent)
+                     poetry or pdm (project management)
+# systemd - default service and system manager by linux distributions.
+            * it manages: 
+                     boot process
+                     services
+                     logging
+                     timers
+
+
+
 
 # nonce - number used once - mainly to ensure security, prevent replay attacks, and verify authenticity in various systems
 # nitpick - to look for very small, often unimportant flaws or details
