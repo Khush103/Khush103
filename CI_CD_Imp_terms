@@ -1,3 +1,24 @@
+# tarball - a single archive file created using the tar (Tape Archive) utility. 
+            - it bundles multiple files and directories into one file, making it easier to store, transfer and deploy applications.
+            - Extensions: 
+                  .tar – Archive only (no compression)
+                  .tar.gz or .tgz – Gzip-compressed tarball
+                  .tar.bz2 – Bzip2-compressed tarball
+                  .tar.xz – XZ-compressed tarball
+
+# framework - a reusable set of libraries, tools and rules that provide a foundation for building software.
+      - instead of writing everything from scratch, developers use a framework to handle common tasks.
+
+      - A framework typically includes:
+            - Common libraries and APIs
+            - Standard project structure
+            - Configuration management
+            - Logging
+            - Error handling
+            - Security features
+            - Communication mechanisms
+            - Utilities for common tasks
+
 # Tagging - creating a version tag in a Git repository during the CI/CD pipeline to mark a specific release of the code.
    - A tag is like a label attached to a specific commit so you can easily identify versions of your project.
 
