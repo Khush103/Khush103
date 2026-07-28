@@ -1,1 +1,9 @@
+gitpkgv - BitBake class used to generate package versions for software built from Git repositories. 
+It creates a sortable package version based on the Git revision count and commit hash, making package upgrades work correctly.
+Ex - 
+inherit gitpkgv
 
+PV = "1.0+git${SRCPV}"
+PKGV = "1.0+git${GITPKGV}"
+- SRCPV - source revision identifier
+- GITPKGV - 
